@@ -1,0 +1,67 @@
+.promo {
+  background-color: #073042;
+}
+
+.promo__container {
+  width: 100%;
+  max-width: 1140px;
+  padding: 75px 0;
+  margin: 0 auto;
+}
+
+.promo__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 84px;
+}
+
+.promo__illustration {
+  min-width: 310px;
+  min-height: 304px;
+  background: url(../../images/earth.svg) content-box no-repeat;
+}
+
+.promo__nowrap {
+  white-space: nowrap;
+}
+
+.promo__main-text {
+  max-width: 640px;
+}
+
+.promo__title {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 36px;
+  color: #fff;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(58 / 50);
+}
+
+.promo__subtitle {
+  max-width: 310px;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(16 / 13);
+  opacity: .5;
+}
+
+.promo__button {
+  padding: 9px 19px;
+  border: none;
+  border: 1px solid rgba(255, 255, 255, .6);
+  background: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: calc(16 / 12);
+}
