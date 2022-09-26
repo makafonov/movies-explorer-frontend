@@ -1,0 +1,15 @@
+.title {
+  padding: 110px 0 23px;
+  border-bottom: 1px solid #dadada;
+  margin: 0;
+  color: #fff;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(27 / 22);
+}
+
+.title_low {
+  padding-top: 100px;
+}
