@@ -1,0 +1,61 @@
+.about-me {
+  background-color: #202020;
+}
+
+.about-me__container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.about-me__info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 66px;
+}
+
+.about-me__text {
+  max-width: 598px;
+}
+
+.about-me__name {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(58 / 50);
+}
+
+.about-me__profession {
+  padding: 0;
+  margin: 18px 0 0;
+  color: #fff;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: calc(20 / 18);
+}
+
+.about-me__description {
+  padding: 0;
+  margin: 25px 0 0;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(22 / 14);
+}
+
+.about-me__github {
+  display: block;
+  margin-top: 99px;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: calc(17 / 14);
+  text-decoration: none;
+}
