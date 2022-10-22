@@ -1,24 +1,15 @@
 import { Link } from 'react-router-dom';
+
+import Logo from '../Logo/Logo';
 import './Header.css';
 
-const Header = () => (
-  <header className='header'>
+const Header = ({ children, additionalClass }) => (
+  <header className={`header ${additionalClass || ''}`}>
     <div className='header__container'>
       <Link to='/'>
-        <div className='logo'></div>
+        <Logo />
       </Link>
-        <ul className='header__nav'>
-          <li>
-            <Link to='/signup' className='header__link header__link_type_signup'>
-              Регистрация
-            </Link>
-          </li>
-          <li>
-            <Link to='/signin' className='header__link header__link_type_signin'>
-              Войти
-            </Link>
-          </li>
-        </ul>
+      {children}
     </div>
   </header>
 );

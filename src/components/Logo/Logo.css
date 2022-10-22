@@ -1,0 +1,5 @@
+.logo {
+  min-width: 38px;
+  min-height: 38px;
+  background: url(../../images/logo.svg) content-box no-repeat;
+}
