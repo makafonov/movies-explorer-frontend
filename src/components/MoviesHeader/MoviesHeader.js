@@ -13,7 +13,7 @@ const MoviesHeader = () => (
         </Link>
       </li>
       <li className='header__nav-item header__nav-item_movies'>
-        <Link to='/saved' className='header__link header__link_movies'>
+        <Link to='/saved-movies' className='header__link header__link_movies'>
           Сохранённые фильмы
         </Link>
       </li>

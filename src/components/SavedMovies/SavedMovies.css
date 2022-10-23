@@ -1,0 +1,9 @@
+.movies {
+  background-color: #202020;
+}
+
+.movies__container {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+}
