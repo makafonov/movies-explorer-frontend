@@ -18,7 +18,7 @@ const MoviesHeader = () => (
         </Link>
       </li>
       <li className='header__nav-item header__nav-item_movies'>
-        <Link to='/account' className='header__link header__link_movies'>
+        <Link to='/profile' className='header__link header__link_movies'>
           Аккаунт <img className='header__nav-account' src={accountImg} alt='Аккаунт.' />
         </Link>
       </li>
