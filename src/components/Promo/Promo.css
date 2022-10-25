@@ -3,9 +3,8 @@
 }
 
 .promo__container {
-  width: 100%;
-  max-width: 1140px;
-  padding: 75px 0;
+  max-width: calc(1280px - 2 * 70px);
+  padding: 75px 70px;
   margin: 0 auto;
 }
 
@@ -18,11 +17,7 @@
 .promo__illustration {
   min-width: 310px;
   min-height: 304px;
-  background: url(../../images/earth.svg) content-box no-repeat;
-}
-
-.promo__nowrap {
-  white-space: nowrap;
+  background: url(../../images/earth.svg) no-repeat;
 }
 
 .promo__main-text {
@@ -31,8 +26,7 @@
 
 .promo__title {
   padding: 0;
-  margin: 0;
-  margin-bottom: 36px;
+  margin: 0 0 36px;
   color: #fff;
   font-size: 50px;
   font-style: normal;
@@ -64,4 +58,38 @@
   font-style: normal;
   font-weight: 500;
   line-height: calc(16 / 12);
+}
+
+@media screen and (max-width: 768px) {
+  .promo__container {
+    padding: 140px 30px 75px;
+  }
+
+  .promo__info {
+    flex-flow: column-reverse;
+    align-items: center;
+    margin-bottom: 91px;
+  }
+
+  .promo__title {
+    margin-bottom: 23px;
+    font-size: 40px;
+    line-height: calc(50 / 40);
+    text-align: center;
+  }
+
+  .promo__subtitle {
+    max-width: 260px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .promo__main-text {
+    margin-top: 48px;
+  }
+
+  .promo__button {
+    display: block;
+    margin: 0 auto;
+  }
 }

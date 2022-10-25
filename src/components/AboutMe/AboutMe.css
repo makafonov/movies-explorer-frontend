@@ -3,8 +3,8 @@
 }
 
 .about-me__container {
-  width: 100%;
-  max-width: 1140px;
+  max-width: calc(1280px - 2 * 70px);
+  padding: 0 70px;
   margin: 0 auto;
 }
 
@@ -58,4 +58,43 @@
   font-weight: 500;
   line-height: calc(17 / 14);
   text-decoration: none;
+}
+
+.about-me__photo {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__container {
+    padding: 0 50px;
+  }
+
+  .about-me__name {
+    font-size: 40px;
+    line-height: calc(40 / 40);
+  }
+
+  .about-me__profession {
+    margin-top: 16px;
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-me__description {
+    max-width: 356px;
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-me__github {
+    margin-top: 88px;
+  }
+
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
 }

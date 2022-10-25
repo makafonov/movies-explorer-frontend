@@ -3,8 +3,9 @@
 }
 
 .portfolio__container {
-  width: 100%;
   max-width: 1140px;
+  max-width: calc(1280px - 2 * 70px);
+  padding: 0 70px;
   margin: 0 auto;
 }
 
@@ -48,4 +49,24 @@
 
 .portfolio__item:last-child {
   border-bottom: none;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio__container {
+    padding: 0 50px;
+  }
+
+  .portfolio__title {
+    padding-top: 90px;
+  }
+
+  .portfolio__links {
+    padding-bottom: 86px;
+  }
+
+  .portfolio__link {
+    padding-bottom: 13px;
+    font-size: 28px;
+    line-height: calc(50 / 28);
+  }
 }

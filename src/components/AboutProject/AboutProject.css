@@ -3,15 +3,14 @@
 }
 
 .about-project__container {
-  width: 100%;
-  max-width: 1140px;
+  max-width: calc(1280px - 2 * 70px);
+  padding: 0 70px;
   margin: 0 auto;
 }
 
 .about-project__subtitle {
   padding: 0;
   margin: 0;
-  margin-bottom: 26px;
   color: #fff;
   font-size: 20px;
   font-style: normal;
@@ -34,7 +33,7 @@
   display: grid;
   padding-top: 69px;
   margin-bottom: 110px;
-  column-gap: 21px;
+  gap: 27px 21px;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
 }
@@ -73,4 +72,33 @@
 .about-project__timeline-rest {
   background-color: #303030;
   color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project__container {
+    padding: 0 50px;
+  }
+
+  .title {
+    padding-top: 91px;
+  }
+
+  .about-project__description {
+    margin-bottom: 93px;
+    gap: 22px 30px;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-project__timeline-graph {
+    padding-top: 9px;
+  }
+
+  .about-project__timeline {
+    padding-bottom: 76px;
+    padding-left: 3px;
+  }
 }
