@@ -30,3 +30,15 @@
   font-weight: 500;
   line-height: calc(15 / 12);
 }
+
+@media screen and (max-width: 768px) {
+  .movies-card-list {
+    padding-bottom: 95px;
+  }
+
+  .movies-card-list__container {
+    margin-bottom: 74px;
+    gap: 27px 30px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

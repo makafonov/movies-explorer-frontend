@@ -81,3 +81,13 @@
   background: #3ddc84;
   transform: translateX(16px);
 }
+
+@media screen and (max-width: 768px) {
+  .search-form__field {
+    padding-top: 84px;
+  }
+
+  .search-form__checkbox-container {
+    margin-bottom: 131px;
+  }
+}

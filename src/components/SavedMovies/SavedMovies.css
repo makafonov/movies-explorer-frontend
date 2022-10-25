@@ -3,7 +3,13 @@
 }
 
 .movies__container {
-  width: 100%;
-  max-width: 1140px;
+  max-width: calc(1280px - 2 * 70px);
+  padding: 0 70px;
   margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .movies__container {
+    padding: 0 30px;
+  }
 }
