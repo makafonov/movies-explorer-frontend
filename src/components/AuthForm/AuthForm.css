@@ -100,3 +100,9 @@
   margin-left: 6px;
   color: #4285f4;
 }
+
+@media screen and (max-width: 768px) {
+  .auth__container {
+    padding-top: 232px;
+  }
+}

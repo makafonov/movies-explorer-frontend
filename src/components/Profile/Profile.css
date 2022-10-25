@@ -82,3 +82,14 @@
 .profile__button_type_logout {
   color: #ee3465;
 }
+
+@media screen and (max-width: 768px) {
+  .profile__title {
+    padding-top: 235px;
+    margin-bottom: 80px;
+  }
+
+  .profile__form {
+    margin-bottom: 193px;
+  }
+}
