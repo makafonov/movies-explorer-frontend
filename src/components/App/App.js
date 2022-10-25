@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import routes from '../../routes';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -22,13 +23,13 @@ const App = () => {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Routes>
-          <Route path='/' element={<Main />} />
-          <Route path='/movies' element={<Movies />} />
-          <Route path='/saved-movies' element={<SavedMovies />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/signup' element={<Register />} />
-          <Route path='/signin' element={<Login />} />
-          <Route path='*' element={<NotFound /> } />
+          <Route path={routes.home} element={<Main />} />
+          <Route path={routes.movies} element={<Movies />} />
+          <Route path={routes.saved} element={<SavedMovies />} />
+          <Route path={routes.profile} element={<Profile />} />
+          <Route path={routes.signup} element={<Register />} />
+          <Route path={routes.signin} element={<Login />} />
+          <Route path={routes.rest} element={<NotFound /> } />
         </Routes>
       </div>
     </CurrentUserContext.Provider>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import routes from '../../routes';
 import Logo from '../Logo/Logo';
 import './AuthForm.css';
 
@@ -8,7 +9,7 @@ const AuthForm = ({ formName, isSignUpPage }) => {
   const submitText = isSignUpPage ? 'Зарегистрироваться' : 'Войти';
   const submitClassName = `auth__submit ${!isSignUpPage && 'auth__submit_type_signin'}`;
   const adviceText = isSignUpPage ? 'Уже зарегистрированы?' : 'Ещё не зарегистрированы?';
-  const adviceLink = isSignUpPage ? '/signin' : '/signup';
+  const adviceLink = isSignUpPage ? routes.signin : routes.signup;
   const adviceLinkText = isSignUpPage ? 'Войти' : 'Регистрация';
 
   return (

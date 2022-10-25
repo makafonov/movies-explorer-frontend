@@ -1,11 +1,14 @@
 import { useLocation } from 'react-router-dom';
 
+import routes from '../../routes';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 const MoviesCardList = ({ movies }) => {
   const location = useLocation();
-  const isMoviesPage = location.pathname === '/movies';
+  // eslint-disable-next-line no-unused-vars
+  const isMoviesPage = location.pathname === routes.movies;
+
 
   return (
     <section className='movies-card-list'>

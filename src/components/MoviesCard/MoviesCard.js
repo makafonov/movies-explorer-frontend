@@ -1,9 +1,11 @@
 import { useLocation } from 'react-router-dom';
+
+import routes from '../../routes';
 import './MoviesCard.css';
 
 const MoviesCard = ({ movie }) => {
   const location = useLocation();
-  const isSavedMoviesPage = location.pathname === '/saved-movies';
+  const isSavedMoviesPage = location.pathname === routes.saved;
   const buttonClassName = `movies-card__button ${
     isSavedMoviesPage ? 'movies-card__button_type_delete' : 'movies-card__button_type_save'
   }`;

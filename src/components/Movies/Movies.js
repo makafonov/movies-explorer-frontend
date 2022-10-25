@@ -11,7 +11,7 @@ const Movies = () => (
     <main className='movies'>
       <div className='movies__container'>
         <SearchForm />
-        <MoviesCardList movies={movies} />
+        <MoviesCardList movies={movies.slice(0, 8)} />
       </div>
     </main>
     <Footer />
