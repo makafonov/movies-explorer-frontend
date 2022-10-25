@@ -43,6 +43,10 @@
   list-style: none;
 }
 
+.footer__link-item {
+  display: inherit;
+}
+
 .footer__link {
   margin-left: 20px;
   color: #fff;
