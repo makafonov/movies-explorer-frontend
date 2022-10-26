@@ -38,3 +38,26 @@
   font-weight: 400;
   line-height: calc(17 / 14);
 }
+
+@media screen and (max-width: 320px) {
+  .not-found {
+    padding-top: 7px;
+  }
+
+  .not-found__caption {
+    font-size: 80px;
+    line-height: calc(97 / 80);
+  }
+
+  .not-found__text {
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .not-found__button {
+    top: 285px;
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+}

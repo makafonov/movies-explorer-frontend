@@ -21,6 +21,8 @@
 
 .auth__form {
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
   flex-direction: column;
 }
 
@@ -104,5 +106,40 @@
 @media screen and (max-width: 768px) {
   .auth__container {
     padding-top: 232px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .auth__form {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .auth__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 56px;
+  }
+
+  .auth__title {
+    margin-top: 50px;
+    margin-bottom: 80px;
+  }
+
+  .auth__submit {
+    margin-top: 215px;
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .auth__advice {
+    margin-top: 14px;
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .auth__label:last-of-type {
+    margin-bottom: 69px;
   }
 }
