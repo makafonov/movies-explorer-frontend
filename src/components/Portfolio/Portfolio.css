@@ -40,7 +40,9 @@
 }
 
 .portfolio__arrow {
-  line-height: calc(60 / 30);
+  display: flex;
+  height: 60px;
+  align-items: center;
 }
 
 .portfolio__item {
@@ -68,5 +70,36 @@
     padding-bottom: 13px;
     font-size: 28px;
     line-height: calc(50 / 28);
+  }
+
+  .portfolio__arrow {
+    height: 56px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .portfolio__container {
+    padding: 0 14px;
+  }
+
+  .portfolio__title {
+    padding-top: 69px;
+    font-size: 14px;
+    line-height: calc(20 / 14);
+  }
+
+  .portfolio__links {
+    padding-bottom: 66px;
+    margin-top: 21px;
+  }
+
+  .portfolio__link {
+    padding-bottom: 19px;
+    font-size: 18px;
+    line-height: calc(28 / 18);
+  }
+
+  .portfolio__arrow {
+    height: 28px;
   }
 }

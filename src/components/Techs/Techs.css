@@ -4,7 +4,7 @@
 
 .techs__container {
   max-width: calc(1280px - 2 * 70px);
-  padding: 0 70px;
+  padding: 99px 70px 0;
   margin: 0 auto;
 }
 
@@ -62,7 +62,7 @@
 
 @media screen and (max-width: 768px) {
   .techs__container {
-    padding: 0 50px;
+    padding: 91px 50px 0;
   }
 
   .techs__subtitle {
@@ -85,5 +85,37 @@
     height: 57px;
     font-size: 12px;
     line-height: calc(15 / 12);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs__container {
+    padding: 54px 18px 0;
+  }
+
+  .techs__subtitle {
+    margin-top: 60px;
+    font-size: 30px;
+    letter-spacing: -.04em;
+    line-height: calc(36 / 30);
+  }
+
+  .techs__description {
+    margin-top: 24px;
+    font-size: 11px;
+    line-height: calc(16 / 11);
+  }
+
+  .techs__list {
+    flex-wrap: wrap;
+    padding-right: 53px;
+    padding-left: 53px;
+    margin-top: 50px;
+    row-gap: 10px;
+  }
+
+  .techs__list::after {
+    flex: auto;
+    content: '';
   }
 }

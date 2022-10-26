@@ -1,4 +1,4 @@
-import photo from '../../images/photo.png';
+import photo from '../../images/photo2.jpg';
 import Title from '../Title/Title';
 import './AboutMe.css';
 

@@ -1,5 +1,5 @@
 .title {
-  padding: 110px 0 23px;
+  padding: 0 0 23px;
   border-bottom: 1px solid #dadada;
   margin: 0;
   color: #fff;
@@ -10,6 +10,10 @@
   line-height: calc(27 / 22);
 }
 
-.title_low {
-  padding-top: 100px;
+@media screen and (max-width: 320px) {
+  .title {
+    padding-bottom: 28px;
+    font-size: 18px;
+    line-height: calc(22 / 18);
+  }
 }

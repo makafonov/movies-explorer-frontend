@@ -15,9 +15,9 @@
 }
 
 .promo__illustration {
-  min-width: 310px;
-  min-height: 304px;
-  background: url(../../images/earth.svg) no-repeat;
+  width: 310px;
+  height: 304px;
+  background: url(../../images/earth.svg) no-repeat center / cover;
 }
 
 .promo__main-text {
@@ -91,5 +91,30 @@
   .promo__button {
     display: block;
     margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .promo__container {
+    padding: 70px 14px 30px;
+  }
+
+  .promo__illustration {
+    width: 210px;
+    height: 206px;
+  }
+
+  .promo__main-text {
+    margin-top: 44px;
+  }
+
+  .promo__title {
+    font-size: 30px;
+    letter-spacing: -.04em;
+    line-height: calc(38 / 30);
+  }
+
+  .promo__info {
+    margin-bottom: 81px;
   }
 }
