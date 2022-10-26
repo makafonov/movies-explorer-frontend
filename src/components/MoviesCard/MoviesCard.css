@@ -75,3 +75,19 @@
     row-gap: 15px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .movies-card__container {
+    padding-right: 18px;
+  }
+
+  .movies-card__title {
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: calc(12 / 10);
+  }
+}

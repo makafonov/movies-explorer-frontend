@@ -6,9 +6,7 @@ import './MoviesCardList.css';
 
 const MoviesCardList = ({ movies }) => {
   const location = useLocation();
-  // eslint-disable-next-line no-unused-vars
   const isMoviesPage = location.pathname === routes.movies;
-
 
   return (
     <section className='movies-card-list'>

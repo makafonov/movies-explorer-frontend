@@ -55,4 +55,8 @@
   .header__container {
     padding: 0 14px;
   }
+
+  .header__nav {
+    display: none;
+  }
 }
