@@ -63,6 +63,7 @@
 .about-me__photo {
   width: 270px;
   height: 327px;
+  margin-left: 49px;
   border-radius: 10px;
   object-fit: cover;
 }
@@ -100,14 +101,24 @@
   }
 }
 
-@media screen and (max-width: 320px) {
-  .about-me__container {
-    padding: 51px 14px 0;
-  }
-
+@media screen and (max-width: 554px) {
   .about-me__info {
     flex-direction: column-reverse;
     margin-top: 60px;
+  }
+
+  .about-me__photo {
+    margin-left: 0;
+  }
+
+  .about-me__name {
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-me__container {
+    padding: 51px 14px 0;
   }
 
   .about-me__photo {
@@ -116,7 +127,6 @@
   }
 
   .about-me__name {
-    margin-top: 40px;
     font-size: 30px;
     line-height: calc(36 / 30);
   }
