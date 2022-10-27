@@ -1,0 +1,52 @@
+.nav {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.nav__item {
+  align-self: center;
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: calc(16 / 12);
+  text-decoration: none;
+}
+
+.nav__link_type_signin {
+  padding: 8px 20px;
+  background-color: #3ddc84;
+  border-radius: 3px;
+  color: #000;
+}
+
+.nav__link_type_movies {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.nav__item_type_movies:last-of-type {
+  margin-left: 40px;
+}
+
+.nav__item_type_movies:last-of-type .nav__link_type_movies:last-of-type {
+  font-size: 13px;
+}
+
+.nav__account {
+  margin: 0 3px 0 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav_hidden {
+    display: none;
+  }
+}
