@@ -9,11 +9,13 @@ import Techs from '../Techs/Techs';
 const Main = () => (
   <>
     <MainHeader />
-    <Promo />
-    <AboutProject />
-    <Techs />
-    <AboutMe />
-    <Portfolio />
+    <main>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
+      <Portfolio />
+    </main>
     <Footer />
   </>
 );

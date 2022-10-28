@@ -7,8 +7,10 @@ import SearchForm from '../SearchForm/SearchForm';
 const Movies = () => (
   <>
     <MoviesHeader />
-    <SearchForm />
-    <MoviesCardList movies={movies.slice(0, 8)} />
+    <main>
+      <SearchForm />
+      <MoviesCardList movies={movies.slice(0, 8)} />
+    </main>
     <Footer />
   </>
 );

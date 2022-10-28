@@ -8,8 +8,10 @@ import './SavedMovies.css';
 const SavedMovies = () => (
   <>
     <MoviesHeader />
-    <SearchForm />
-    <MoviesCardList movies={movies.slice(0, 3)} />
+    <main>
+      <SearchForm />
+      <MoviesCardList movies={movies.slice(0, 3)} />
+    </main>
     <Footer />
   </>
 );
