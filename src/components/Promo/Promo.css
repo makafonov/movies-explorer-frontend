@@ -15,7 +15,7 @@
 }
 
 .promo__illustration {
-  width: 310px;
+  min-width: 310px;
   height: 304px;
   background: url(../../images/earth.svg) no-repeat center / cover;
 }
@@ -100,7 +100,7 @@
   }
 
   .promo__illustration {
-    width: 210px;
+    min-width: 210px;
     height: 206px;
   }
 
