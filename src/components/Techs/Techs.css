@@ -1,0 +1,130 @@
+.techs {
+  background-color: #272727;
+}
+
+.techs__container {
+  max-width: calc(1280px - 2 * 70px);
+  padding: 99px 70px 0;
+  margin: 0 auto;
+}
+
+.techs__subtitle {
+  padding: 0;
+  margin: 90px 0 0;
+  color: #fff;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(58 / 50);
+  text-align: center;
+}
+
+.techs__description {
+  max-width: 460px;
+  padding: 0;
+  margin: 26px auto 0;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(20 / 14);
+  text-align: center;
+}
+
+.techs__list {
+  display: grid;
+  max-width: 700px;
+  justify-content: center;
+  padding: 100px 0;
+  margin: 0 auto;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, 90px);
+  list-style: none;
+}
+
+.techs__item {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  background-color: #303030;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(17 / 14);
+}
+
+@media screen and (max-width: 830px) {
+  .techs__list {
+    grid-template-columns: repeat(auto-fill, 84px);
+  }
+
+  .techs__item {
+    height: 57px;
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+}
+
+@media screen and (max-width: 788px) {
+  .techs__container {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .techs__container {
+    padding: 91px 50px 0;
+  }
+
+  .techs__subtitle {
+    margin-top: 80px;
+  }
+
+  .techs__description {
+    margin-top: 22px;
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .techs__list {
+    padding-top: 83px;
+    padding-bottom: 89px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .techs__subtitle {
+    margin-top: 60px;
+    font-size: 30px;
+    letter-spacing: -.04em;
+    line-height: calc(36 / 30);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .techs {
+    background-color: #202020;
+  }
+
+  .techs__container {
+    padding: 54px 18px 0;
+  }
+
+  .techs__description {
+    margin-top: 24px;
+    font-size: 11px;
+    line-height: calc(16 / 11);
+  }
+
+  .techs__list {
+    max-width: 180px;
+    padding-top: 50px;
+  }
+}

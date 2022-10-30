@@ -1,0 +1,120 @@
+.promo {
+  background-color: #073042;
+}
+
+.promo__container {
+  max-width: calc(1280px - 2 * 70px);
+  padding: 75px 70px;
+  margin: 0 auto;
+}
+
+.promo__info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 84px;
+}
+
+.promo__illustration {
+  min-width: 310px;
+  height: 304px;
+  background: url(../../images/earth.svg) no-repeat center / cover;
+}
+
+.promo__main-text {
+  max-width: 640px;
+}
+
+.promo__title {
+  padding: 0;
+  margin: 0 0 36px;
+  color: #fff;
+  font-size: 50px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(58 / 50);
+}
+
+.promo__subtitle {
+  max-width: 310px;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(16 / 13);
+  opacity: .5;
+}
+
+.promo__button {
+  padding: 9px 19px;
+  border: none;
+  border: 1px solid rgba(255, 255, 255, .6);
+  background: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: calc(16 / 12);
+}
+
+@media screen and (max-width: 768px) {
+  .promo__container {
+    padding: 140px 30px 75px;
+  }
+
+  .promo__info {
+    flex-flow: column-reverse;
+    align-items: center;
+    margin-bottom: 91px;
+  }
+
+  .promo__title {
+    margin-bottom: 23px;
+    font-size: 40px;
+    line-height: calc(50 / 40);
+    text-align: center;
+  }
+
+  .promo__subtitle {
+    max-width: 260px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .promo__main-text {
+    margin-top: 48px;
+  }
+
+  .promo__button {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .promo__container {
+    padding: 70px 14px 30px;
+  }
+
+  .promo__illustration {
+    min-width: 210px;
+    height: 206px;
+  }
+
+  .promo__main-text {
+    margin-top: 44px;
+  }
+
+  .promo__title {
+    font-size: 30px;
+    letter-spacing: -.04em;
+    line-height: calc(38 / 30);
+  }
+
+  .promo__info {
+    margin-bottom: 81px;
+  }
+}

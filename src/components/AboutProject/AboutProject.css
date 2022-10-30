@@ -1,0 +1,149 @@
+.about-project {
+  background-color: #202020;
+}
+
+.about-project__container {
+  max-width: calc(1280px - 2 * 70px);
+  padding: 110px 70px 0;
+  margin: 0 auto;
+}
+
+.about-project__subtitle {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: -.04em;
+  line-height: calc(24 / 20);
+}
+
+.about-project__text {
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(20 / 14);
+}
+
+.about-project__description {
+  display: grid;
+  padding-top: 69px;
+  margin-bottom: 110px;
+  gap: 27px 21px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
+}
+
+.about-project__timeline {
+  display: grid;
+  padding-bottom: 96px;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: repeat(2, auto);
+}
+
+.about-project__timeline-part {
+  margin: 0;
+  font-size: 14px;
+  font-style: normal;
+  line-height: calc(17 / 14);
+  text-align: center;
+}
+
+.about-project__timeline-graph {
+  padding: 10px 0;
+  font-weight: 400;
+}
+
+.about-project__timeline-text {
+  padding: 14px 0;
+  color: #8b8b8b;
+  font-weight: 500;
+}
+
+.about-project__timeline-1week {
+  background-color: #3ddc84;
+  color: #000;
+}
+
+.about-project__timeline-rest {
+  background-color: #303030;
+  color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  .about-project__container {
+    padding: 91px 50px 0;
+  }
+
+  .about-project__description {
+    margin-bottom: 93px;
+    gap: 22px 30px;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: calc(18 / 12);
+  }
+
+  .about-project__timeline-graph {
+    padding-top: 9px;
+  }
+
+  .about-project__timeline {
+    padding-bottom: 76px;
+    padding-left: 3px;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .about-project__timeline {
+    padding-left: 0;
+    grid-template-columns: 100px 2fr;
+  }
+
+  .about-project__timeline-part {
+    font-size: 11px;
+    line-height: calc(13 / 11);
+  }
+
+  .about-project__timeline-graph {
+    padding: 11px 0;
+  }
+
+  .about-project__timeline-text {
+    padding: 10px 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about-project__container {
+    padding: 70px 18px 0;
+  }
+
+  .about-project__description {
+    padding-top: 61px;
+    margin-bottom: 60px;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(1, auto);
+    row-gap: 15px;
+  }
+
+  .about-project__subtitle {
+    font-size: 18px;
+    line-height: calc(22 / 18);
+  }
+
+  .about-project__subtitle:last-of-type {
+    padding-top: 42px;
+  }
+
+  .about-project__text {
+    font-size: 11px;
+    line-height: calc(16 / 11);
+  }
+}

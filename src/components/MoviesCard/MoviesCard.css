@@ -1,0 +1,93 @@
+.movies-card {
+  min-width: 0;
+}
+
+.movies-card__container {
+  display: grid;
+  padding: 16px 24px 16px 16px;
+  background-color: #222;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  grid-template-areas:
+    'title button'
+    'duration button';
+  grid-template-columns: 1fr 14px;
+  grid-template-rows: repeat(2, 1fr);
+  row-gap: 17px;
+}
+
+.movies-card__image {
+  display: block;
+  width: 100%;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  object-fit: cover;
+}
+
+.movies-card__title {
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  grid-area: title;
+  line-height: calc(16 / 13);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.movies-card__duration {
+  padding: 0;
+  margin: 0;
+  color: #8b8b8b;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  grid-area: duration;
+  line-height: calc(13 / 11);
+}
+
+.movies-card__button {
+  height: 16px;
+  border: none;
+  cursor: pointer;
+  grid-area: button;
+}
+
+.movies-card__button_type_save {
+  background: url(../../images/icon-like.svg) no-repeat center;
+}
+
+.movies-card__button_type_delete {
+  display: none;
+  background: url(../../images/icon-delete.svg) no-repeat center;
+}
+
+.movies-card__container:hover .movies-card__button_type_delete {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .movies-card__container {
+    padding: 14px 24px 14px 14px;
+    row-gap: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies-card__container {
+    padding-right: 18px;
+  }
+
+  .movies-card__title {
+    font-size: 12px;
+    line-height: calc(15 / 12);
+  }
+
+  .movies-card__duration {
+    font-size: 10px;
+    line-height: calc(12 / 10);
+  }
+}
