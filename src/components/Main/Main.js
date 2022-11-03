@@ -6,9 +6,9 @@ import Portfolio from '../Portfolio/Portfolio';
 import Promo from '../Promo/Promo';
 import Techs from '../Techs/Techs';
 
-const Main = () => (
+const Main = ({ loggedIn }) => (
   <>
-    <MainHeader />
+    <MainHeader loggedIn={loggedIn} />
     <main>
       <Promo />
       <AboutProject />

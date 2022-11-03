@@ -5,7 +5,7 @@ import useFormWithValidation from '../../utils/hooks';
 import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import './Profile.css';
 
-const Profile = ({ handleLogOut, handleUpdateProfile }) => {
+const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
   const currentUser = React.useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   const [isEditableForm, setIsEditableForm] = React.useState(false);
@@ -20,7 +20,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile }) => {
   const handleEditProfile = () => {
     setMessage('');
     setIsEditableForm(true);
-  }
+  };
 
   const submitForm = (event) => {
     event.preventDefault();
@@ -42,7 +42,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile }) => {
 
   return (
     <>
-      <MoviesHeader />
+      <MoviesHeader loggedIn={loggedIn} />
       <main className='profile'>
         <div className='profile__container'>
           <h2 className='profile__title'> Привет, {currentUser.name}!</h2>

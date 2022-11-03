@@ -1,10 +1,9 @@
-
 import Header from '../Header/Header';
 import Navigation from '../Navigation/Navigation';
 
-const MoviesHeader = () => (
+const MoviesHeader = ({ loggedIn }) => (
   <Header>
-    <Navigation />
+    <Navigation loggedIn={loggedIn} />
   </Header>
 );
 

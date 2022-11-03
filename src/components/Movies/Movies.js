@@ -4,9 +4,9 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import SearchForm from '../SearchForm/SearchForm';
 
-const Movies = () => (
+const Movies = ({ loggedIn }) => (
   <>
-    <MoviesHeader />
+    <MoviesHeader loggedIn={loggedIn} />
     <main>
       <SearchForm />
       <MoviesCardList movies={movies.slice(0, 8)} />

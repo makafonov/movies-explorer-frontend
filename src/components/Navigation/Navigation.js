@@ -5,8 +5,8 @@ import routes from '../../routes';
 import Hamburger from '../Hamburger/Hamburger';
 import './Navigation.css';
 
-const Navigation = ({ isLanding }) =>
-  isLanding ? (
+const Navigation = ({ loggedIn }) =>
+  !loggedIn ? (
     <ul className='nav'>
       <li className='nav__item'>
         <Link to={routes.signup} className='nav__link nav__link_type_signup'>

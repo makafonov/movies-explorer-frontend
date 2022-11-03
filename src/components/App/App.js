@@ -107,7 +107,7 @@ const App = () => {
             path={routes.movies}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Movies />
+                <Movies loggedIn={loggedIn} />
               </ProtectedRoute>
             }
           />
@@ -115,7 +115,7 @@ const App = () => {
             path={routes.saved}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedMovies />
+                <SavedMovies loggedIn={loggedIn} />
               </ProtectedRoute>
             }
           />
@@ -123,7 +123,11 @@ const App = () => {
             path={routes.profile}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Profile handleLogOut={handleLogOut} handleUpdateProfile={handleUpdateProfile} />
+                <Profile
+                  handleLogOut={handleLogOut}
+                  handleUpdateProfile={handleUpdateProfile}
+                  loggedIn={loggedIn}
+                />
               </ProtectedRoute>
             }
           />
