@@ -1,4 +1,4 @@
-const SERVER_URL = 'https://api.domain.nomoredomains.sbs/'
+import { SERVER_URL } from './consts';
 
 class Api {
   constructor({ baseUrl, headers }) {
