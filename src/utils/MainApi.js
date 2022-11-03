@@ -32,6 +32,14 @@ class Api {
       headers: { ...this.headers, Authorization: `Bearer ${jwt}` },
     }).then(Api.processResponse);
   }
+
+  updateUserInfo(jwt, profileData) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: { ...this.headers, Authorization: `Bearer ${jwt}` },
+      body: JSON.stringify(profileData),
+    }).then(Api.processResponse);
+  }
 }
 
 const mainApi = new Api({

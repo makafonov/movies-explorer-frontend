@@ -25,7 +25,7 @@ const App = () => {
     if (loggedIn) {
       navigate(routes.movies);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   const tokenCheck = () => {
@@ -81,6 +81,23 @@ const App = () => {
       });
   };
 
+  const handleLogOut = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+    navigate(routes.main);
+  };
+
+  const handleUpdateProfile = (profileData) => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return undefined;
+    }
+
+    return mainApi.updateUserInfo(jwt, profileData).then((data) => {
+      setCurrentUser(data);
+    });
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -106,7 +123,7 @@ const App = () => {
             path={routes.profile}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Profile />
+                <Profile handleLogOut={handleLogOut} handleUpdateProfile={handleUpdateProfile} />
               </ProtectedRoute>
             }
           />

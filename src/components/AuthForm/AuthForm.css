@@ -104,8 +104,8 @@
 }
 
 .auth__submit:disabled {
-  background-color: #8b8b8b;
-  color: #686868;
+  cursor: default;
+  opacity: .5;
 }
 
 .auth__advice {
