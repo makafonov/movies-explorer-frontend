@@ -5,7 +5,7 @@ import useFormWithValidation from '../../utils/hooks';
 import Logo from '../Logo/Logo';
 import './AuthForm.css';
 
-const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) => {
+const AuthForm = ({ formName, isSignUpPage, handleSubmit, authErrorMessage }) => {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation({
     name: '',
     email: '',
@@ -18,7 +18,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) 
   const adviceLink = isSignUpPage ? routes.signin : routes.signup;
   const adviceLinkText = isSignUpPage ? 'Войти' : 'Регистрация';
   const errorClassName = `auth__server-error ${!isSignUpPage && 'auth__server-error_type_signin'} ${
-    serverErrorMessage && 'auth__error_visible'
+    authErrorMessage && 'auth__error_visible'
   }`;
 
   const submitForm = (event) => {
@@ -80,7 +80,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) 
             </span>
           </label>
 
-          <span className={errorClassName}>{serverErrorMessage}</span>
+          <span className={errorClassName}>{authErrorMessage}</span>
           <button type='submit' className='auth__submit' disabled={!isValid}>
             {submitText}
           </button>

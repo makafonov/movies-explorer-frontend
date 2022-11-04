@@ -16,8 +16,8 @@ import './App.css';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
-  const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const App = () => {
         }
       })
       .catch((error) => {
-        setServerErrorMessage(
+        setAuthErrorMessage(
           error.status === 401
             ? 'Вы ввели неправильный логин или пароль.'
             : 'При авторизации произошла ошибка.'
@@ -73,7 +73,7 @@ const App = () => {
         }
       })
       .catch((error) => {
-        setServerErrorMessage(
+        setAuthErrorMessage(
           error.status === 409
             ? 'Пользователь с таким email уже существует.'
             : 'При регистрации пользователя произошла ошибка.'
@@ -134,12 +134,12 @@ const App = () => {
           <Route
             path={routes.signup}
             element={
-              <Register handleSignUp={handleSignUp} serverErrorMessage={serverErrorMessage} />
+              <Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />
             }
           />
           <Route
             path={routes.signin}
-            element={<Login handleSighIn={handleSignIn} serverErrorMessage={serverErrorMessage} />}
+            element={<Login handleSighIn={handleSignIn} authErrorMessage={authErrorMessage} />}
           />
           <Route path={routes.rest} element={<NotFound />} />
         </Routes>
