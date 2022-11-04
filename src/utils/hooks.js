@@ -1,13 +1,14 @@
 import React, { useCallback } from 'react';
 
-function useFormWithValidation() {
-  const [values, setValues] = React.useState({});
+const useFormWithValidation = (initial = {}) => {
+  const [values, setValues] = React.useState(initial);
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
   const handleChange = (event) => {
     const { target } = event;
-    const { name, value } = target;
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
 
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });

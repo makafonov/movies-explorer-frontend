@@ -6,7 +6,11 @@ import Logo from '../Logo/Logo';
 import './AuthForm.css';
 
 const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) => {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const title = isSignUpPage ? 'Добро пожаловать!' : 'Рады видеть!';
   const submitText = isSignUpPage ? 'Зарегистрироваться' : 'Войти';
@@ -21,7 +25,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) 
     event.preventDefault();
     handleSubmit(values);
     resetForm();
-  }
+  };
 
   return (
     <main className='auth'>
@@ -37,7 +41,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) 
                 type='text'
                 name='name'
                 onChange={handleChange}
-                value={values.name || ''}
+                value={values.name}
                 minLength='2'
                 maxLength='30'
                 required
@@ -68,7 +72,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, serverErrorMessage }) 
               type='password'
               name='password'
               onChange={handleChange}
-              value={values.password || ''}
+              value={values.password}
               required
             />
             <span className={`auth__error ${errors?.password && 'auth__error_visible'}`}>

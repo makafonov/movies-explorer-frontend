@@ -7,15 +7,15 @@ import './Profile.css';
 
 const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
   const currentUser = React.useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    name: currentUser.name,
+    email: currentUser.email,
+  });
   const [isEditableForm, setIsEditableForm] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
   const isEditAcceptable =
-    isValid &&
-    !message &&
-    ((values.name && values.name !== currentUser.name) ||
-      (values.email && values.email !== currentUser.email));
+    isValid && !message && (values.name !== currentUser.name || values.email !== currentUser.email);
 
   const handleEditProfile = () => {
     setMessage('');
@@ -24,9 +24,8 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
 
   const submitForm = (event) => {
     event.preventDefault();
-    const { name, email } = values;
 
-    handleUpdateProfile({ name: name || currentUser.name, email: email || currentUser.email })
+    handleUpdateProfile(values)
       .then(() => {
         setMessage('Данные успешно обновлены.');
         setTimeout(() => setIsEditableForm(false), 3000);
@@ -57,7 +56,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
                 type='text'
                 name='name'
                 onChange={handleChange}
-                value={values.name || currentUser.name}
+                value={values.name}
                 disabled={!isEditableForm}
                 minLength='2'
                 maxLength='30'
@@ -70,7 +69,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
                 type='email'
                 name='email'
                 onChange={handleChange}
-                value={values.email || currentUser.email}
+                value={values.email}
                 disabled={!isEditableForm}
               />
             </label>
