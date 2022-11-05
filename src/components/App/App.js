@@ -3,7 +3,9 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import routes from '../../routes';
+import searchMovies from '../../utils';
 import mainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -19,6 +21,16 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [authErrorMessage, setAuthErrorMessage] = useState('');
 
+  const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) ?? null);
+  const [foundMovies, setFoundMovies] = useState(
+    JSON.parse(localStorage.getItem('foundMovies')) ?? []
+  );
+  const [searchErrorMessage, setSearchErrorMessage] = useState('');
+  const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') ?? '');
+  const [searchCheckboxStatus, setSearchCheckboxStatus] = useState(
+    JSON.parse(localStorage.getItem('searchCheckboxStatus')) ?? false
+  );
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +39,18 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
+
+  useEffect(() => {
+    localStorage.setItem('searchQuery', searchQuery);
+    localStorage.setItem('searchCheckboxStatus', searchCheckboxStatus);
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+  }, [searchQuery, searchCheckboxStatus, foundMovies]);
+
+  useEffect(() => {
+    if (allMovies) {
+      setFoundMovies(searchMovies(allMovies, searchQuery, searchCheckboxStatus));
+    }
+  }, [searchQuery, searchCheckboxStatus, allMovies]);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -82,7 +106,7 @@ const App = () => {
   };
 
   const handleLogOut = () => {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setLoggedIn(false);
     navigate(routes.main);
   };
@@ -98,6 +122,25 @@ const App = () => {
     });
   };
 
+  const handleSubmitSearch = ({ search, checkbox }) => {
+    setSearchQuery(search);
+    setSearchCheckboxStatus(checkbox);
+
+    if (!allMovies) {
+      moviesApi
+        .getMovies()
+        .then((data) => {
+          setAllMovies(data);
+          localStorage.setItem('allMovies', JSON.stringify(data));
+        })
+        .catch(() => {
+          setSearchErrorMessage(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+          );
+        });
+    }
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -107,7 +150,14 @@ const App = () => {
             path={routes.movies}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Movies loggedIn={loggedIn} />
+                <Movies
+                  loggedIn={loggedIn}
+                  handleSubmitSearch={handleSubmitSearch}
+                  movies={foundMovies}
+                  searchQuery={searchQuery}
+                  searchCheckboxStatus={searchCheckboxStatus}
+                  searchErrorMessage={searchErrorMessage}
+                />
               </ProtectedRoute>
             }
           />
@@ -133,9 +183,7 @@ const App = () => {
           />
           <Route
             path={routes.signup}
-            element={
-              <Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />
-            }
+            element={<Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />}
           />
           <Route
             path={routes.signin}

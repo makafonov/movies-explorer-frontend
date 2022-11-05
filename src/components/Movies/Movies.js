@@ -4,12 +4,24 @@ import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 
-const Movies = ({ loggedIn }) => (
+const Movies = ({
+  loggedIn,
+  handleSubmitSearch,
+  movies,
+  searchQuery,
+  searchCheckboxStatus,
+  searchErrorMessage,
+}) => (
   <>
     <MoviesHeader loggedIn={loggedIn} />
     <main className='movies'>
-      <SearchForm />
-      <MoviesCardList movies={[]} />
+      <SearchForm
+        handleSubmitSearch={handleSubmitSearch}
+        searchQuery={searchQuery}
+        searchCheckboxStatus={searchCheckboxStatus}
+        searchErrorMessage={searchErrorMessage}
+      />
+      <MoviesCardList movies={movies} />
     </main>
     <Footer />
   </>
