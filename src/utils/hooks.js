@@ -1,9 +1,9 @@
-import React, { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const useFormWithValidation = (initial = {}) => {
-  const [values, setValues] = React.useState(initial);
-  const [errors, setErrors] = React.useState({});
-  const [isValid, setIsValid] = React.useState(false);
+  const [values, setValues] = useState(initial);
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (event) => {
     const { target } = event;
@@ -25,6 +25,30 @@ const useFormWithValidation = (initial = {}) => {
   );
 
   return { values, handleChange, errors, isValid, resetForm };
-}
+};
 
-export default useFormWithValidation;
+const useWindowSize = () => {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowSize;
+};
+
+export { useFormWithValidation, useWindowSize };
