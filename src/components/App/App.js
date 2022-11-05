@@ -3,7 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import routes from '../../routes';
-import searchMovies from '../../utils';
+import { normalizeMovies, searchMovies } from '../../utils';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import Login from '../Login/Login';
@@ -25,6 +25,9 @@ const App = () => {
   const [foundMovies, setFoundMovies] = useState(
     JSON.parse(localStorage.getItem('foundMovies')) ?? []
   );
+  const [savedMovies, setSavedMovies] = useState(
+    JSON.parse(localStorage.getItem('savedMovies')) ?? []
+  );
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') ?? '');
   const [searchCheckboxStatus, setSearchCheckboxStatus] = useState(
@@ -36,6 +39,20 @@ const App = () => {
   useEffect(() => {
     if (loggedIn) {
       navigate(routes.movies);
+
+      const jwt = localStorage.getItem('jwt');
+      if (!jwt) {
+        return;
+      }
+
+      mainApi
+        .getSavedMovies(jwt)
+        .then((movies) => {
+          setSavedMovies(movies);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
@@ -58,10 +75,15 @@ const App = () => {
       return;
     }
 
-    mainApi.getUserInfo(jwt).then(({ name, email }) => {
-      setCurrentUser({ name, email });
-      setLoggedIn(true);
-    });
+    mainApi
+      .getUserInfo(jwt)
+      .then(({ name, email }) => {
+        setCurrentUser({ name, email });
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -74,7 +96,6 @@ const App = () => {
       .then((data) => {
         const jwt = data.token;
         if (jwt) {
-          setLoggedIn(true);
           localStorage.setItem('jwt', jwt);
           tokenCheck();
         }
@@ -106,8 +127,13 @@ const App = () => {
   };
 
   const handleLogOut = () => {
-    localStorage.clear();
     setLoggedIn(false);
+    setSearchQuery('');
+    setSearchCheckboxStatus(false);
+    setFoundMovies([]);
+    setSavedMovies([]);
+    localStorage.clear();
+
     navigate(routes.main);
   };
 
@@ -130,14 +156,55 @@ const App = () => {
       moviesApi
         .getMovies()
         .then((data) => {
-          setAllMovies(data);
-          localStorage.setItem('allMovies', JSON.stringify(data));
+          const movies = normalizeMovies(data);
+          setAllMovies(movies);
+          localStorage.setItem('allMovies', JSON.stringify(movies));
         })
         .catch(() => {
           setSearchErrorMessage(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
           );
         });
+    }
+  };
+
+  const handleSaveMovie = (movie) => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+
+    mainApi
+      .saveMovie(jwt, movie)
+      .then((savedMovie) => {
+        setSavedMovies([savedMovie, ...savedMovies]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleDeleteMovie = (movie) => {
+    const jwt = localStorage.getItem('jwt');
+    if (!jwt) {
+      return;
+    }
+
+    mainApi
+      .deleteMovie(jwt, movie._id)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((deletedMovie) => deletedMovie._id !== movie._id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleMoviesCardButtonClick = (movie) => {
+    if (savedMovies.some((savedMovie) => savedMovie.movieId === movie.movieId)) {
+      handleDeleteMovie(savedMovies.find((savedMovie) => savedMovie.movieId === movie.movieId));
+    } else {
+      handleSaveMovie(movie);
     }
   };
 
@@ -154,9 +221,11 @@ const App = () => {
                   loggedIn={loggedIn}
                   handleSubmitSearch={handleSubmitSearch}
                   movies={foundMovies}
+                  savedMovies={savedMovies}
                   searchQuery={searchQuery}
                   searchCheckboxStatus={searchCheckboxStatus}
                   searchErrorMessage={searchErrorMessage}
+                  handleMoviesCardButtonClick={handleMoviesCardButtonClick}
                 />
               </ProtectedRoute>
             }
@@ -165,7 +234,11 @@ const App = () => {
             path={routes.saved}
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedMovies loggedIn={loggedIn} />
+                <SavedMovies
+                  loggedIn={loggedIn}
+                  movies={savedMovies}
+                  handleMoviesCardButtonClick={handleMoviesCardButtonClick}
+                />
               </ProtectedRoute>
             }
           />

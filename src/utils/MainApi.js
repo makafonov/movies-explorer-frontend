@@ -40,6 +40,28 @@ class Api {
       body: JSON.stringify(profileData),
     }).then(Api.processResponse);
   }
+
+  getSavedMovies(jwt) {
+    return fetch(`${this.baseUrl}/movies`, {
+      method: 'GET',
+      headers: { ...this.headers, Authorization: `Bearer ${jwt}` },
+    }).then(Api.processResponse);
+  }
+
+  saveMovie(jwt, movie) {
+    return fetch(`${this.baseUrl}/movies`, {
+      method: 'POST',
+      headers: { ...this.headers, Authorization: `Bearer ${jwt}` },
+      body: JSON.stringify(movie),
+    }).then(Api.processResponse);
+  }
+
+  deleteMovie(jwt, movieId) {
+    return fetch(`${this.baseUrl}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: { ...this.headers, Authorization: `Bearer ${jwt}` },
+    }).then(Api.processResponse);
+  }
 }
 
 const mainApi = new Api({

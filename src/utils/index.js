@@ -1,3 +1,5 @@
+import { MOVIES_URL } from '../consts';
+
 const searchMovies = (movies, query, isShortFilm) => {
   let result = movies;
   if (isShortFilm) {
@@ -7,4 +9,19 @@ const searchMovies = (movies, query, isShortFilm) => {
   return result.filter((movie) => movie.nameRU.toLowerCase().includes(query.toLowerCase()));
 };
 
-export default searchMovies;
+const normalizeMovies = (movies) =>
+  movies.map((movie) => ({
+    movieId: movie.id,
+    nameRU: movie.nameRU,
+    nameEN: movie.nameEN,
+    country: movie.country,
+    director: movie.director,
+    duration: movie.duration,
+    year: movie.year,
+    description: movie.description,
+    trailerLink: movie.trailerLink,
+    image: `${MOVIES_URL}/${movie.image.url}`,
+    thumbnail: `${MOVIES_URL}/${movie.image.formats.thumbnail.url}`,
+  }));
+
+export { searchMovies, normalizeMovies };

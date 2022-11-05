@@ -8,9 +8,11 @@ const Movies = ({
   loggedIn,
   handleSubmitSearch,
   movies,
+  savedMovies,
   searchQuery,
   searchCheckboxStatus,
   searchErrorMessage,
+  handleMoviesCardButtonClick,
 }) => (
   <>
     <MoviesHeader loggedIn={loggedIn} />
@@ -21,7 +23,11 @@ const Movies = ({
         searchCheckboxStatus={searchCheckboxStatus}
         searchErrorMessage={searchErrorMessage}
       />
-      <MoviesCardList movies={movies} />
+      <MoviesCardList
+        movies={movies}
+        savedMovies={savedMovies}
+        handleMoviesCardButtonClick={handleMoviesCardButtonClick}
+      />
     </main>
     <Footer />
   </>

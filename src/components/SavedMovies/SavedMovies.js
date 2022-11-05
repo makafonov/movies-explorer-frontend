@@ -3,12 +3,12 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = ({ loggedIn }) => (
+const SavedMovies = ({ loggedIn, movies, handleMoviesCardButtonClick }) => (
   <>
     <MoviesHeader loggedIn={loggedIn} />
     <main className='movies'>
       <SearchForm />
-      <MoviesCardList movies={[]} />
+      <MoviesCardList movies={movies} handleMoviesCardButtonClick={handleMoviesCardButtonClick} />
     </main>
     <Footer />
   </>

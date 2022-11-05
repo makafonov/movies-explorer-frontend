@@ -1,5 +1,6 @@
 .movies-card {
   min-width: 0;
+  max-width: 364px;
 }
 
 .movies-card__container {
@@ -19,6 +20,7 @@
 .movies-card__image {
   display: block;
   width: 100%;
+  height: 203px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   object-fit: cover;
@@ -54,10 +56,24 @@
   border: none;
   cursor: pointer;
   grid-area: button;
+  transition: all .3s ease;
 }
 
 .movies-card__button_type_save {
   background: url(../../images/icon-like.svg) no-repeat center;
+}
+
+.movies-card__button_type_save:hover {
+  background: url(../../images/icon-like-active.svg) no-repeat center;
+  opacity: .7;
+}
+
+.movies-card__button_type_saved {
+  background: url(../../images/icon-like-active.svg) no-repeat center;
+}
+
+.movies-card__button_type_saved:hover {
+  opacity: .7;
 }
 
 .movies-card__button_type_delete {
