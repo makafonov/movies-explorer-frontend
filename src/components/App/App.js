@@ -17,6 +17,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 
 const App = () => {
+  const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,11 +25,9 @@ const App = () => {
   const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) ?? null);
+
   const [foundMovies, setFoundMovies] = useState(
     JSON.parse(localStorage.getItem('foundMovies')) ?? []
-  );
-  const [savedMovies, setSavedMovies] = useState(
-    JSON.parse(localStorage.getItem('savedMovies')) ?? []
   );
   const [searchErrorMessage, setSearchErrorMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState(localStorage.getItem('searchQuery') ?? '');
@@ -36,7 +35,18 @@ const App = () => {
     JSON.parse(localStorage.getItem('searchCheckboxStatus')) ?? false
   );
 
-  const navigate = useNavigate();
+  const [savedMovies, setSavedMovies] = useState(
+    JSON.parse(localStorage.getItem('savedMovies')) ?? []
+  );
+  const [foundMoviesSaved, setFoundMoviesSaved] = useState(
+    JSON.parse(localStorage.getItem('foundMoviesSaved')) ?? []
+  );
+  const [searchQuerySaved, setSearchQuerySaved] = useState(
+    localStorage.getItem('searchQuerySaved') ?? ''
+  );
+  const [searchCheckboxStatusSaved, setSearchCheckboxStatusSaved] = useState(
+    JSON.parse(localStorage.getItem('searchCheckboxStatusSaved')) ?? false
+  );
 
   useEffect(() => {
     if (loggedIn) {
@@ -66,10 +76,22 @@ const App = () => {
   }, [searchQuery, searchCheckboxStatus, foundMovies]);
 
   useEffect(() => {
+    localStorage.setItem('searchQuerySaved', searchQuerySaved);
+    localStorage.setItem('searchCheckboxStatusSaved', searchCheckboxStatusSaved);
+    localStorage.setItem('foundMoviesSaved', JSON.stringify(foundMoviesSaved));
+  }, [searchQuerySaved, searchCheckboxStatusSaved, foundMoviesSaved]);
+
+  useEffect(() => {
     if (allMovies) {
       setFoundMovies(searchMovies(allMovies, searchQuery, searchCheckboxStatus));
     }
   }, [searchQuery, searchCheckboxStatus, allMovies]);
+
+  useEffect(() => {
+    if (savedMovies) {
+      setFoundMoviesSaved(searchMovies(savedMovies, searchQuerySaved, searchCheckboxStatusSaved));
+    }
+  }, [searchQuerySaved, searchCheckboxStatusSaved, savedMovies]);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem('jwt');
@@ -129,12 +151,16 @@ const App = () => {
   };
 
   const handleLogOut = () => {
+    localStorage.clear();
     setLoggedIn(false);
     setSearchQuery('');
     setSearchCheckboxStatus(false);
+    setSearchQuerySaved('');
+    setSearchCheckboxStatusSaved(false);
+    setAllMovies(null);
     setFoundMovies([]);
+    setFoundMoviesSaved([]);
     setSavedMovies([]);
-    localStorage.clear();
 
     navigate(routes.main);
   };
@@ -172,6 +198,11 @@ const App = () => {
           setIsLoading(false);
         });
     }
+  };
+
+  const handleSubmitSearchSaved = ({ search, checkbox }) => {
+    setSearchQuerySaved(search);
+    setSearchCheckboxStatusSaved(checkbox);
   };
 
   const handleSaveMovie = (movie) => {
@@ -243,7 +274,10 @@ const App = () => {
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
                   loggedIn={loggedIn}
-                  movies={savedMovies}
+                  handleSubmitSearch={handleSubmitSearchSaved}
+                  movies={searchQuerySaved ? foundMoviesSaved : savedMovies}
+                  searchQuerySaved={searchQuerySaved}
+                  searchCheckboxStatusSaved={searchCheckboxStatusSaved}
                   handleMoviesCardButtonClick={handleMoviesCardButtonClick}
                 />
               </ProtectedRoute>
