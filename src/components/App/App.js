@@ -19,6 +19,8 @@ import './App.css';
 const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) ?? null);
@@ -50,8 +52,8 @@ const App = () => {
         .then((movies) => {
           setSavedMovies(movies);
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,8 +83,8 @@ const App = () => {
         setCurrentUser({ name, email });
         setLoggedIn(true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -153,6 +155,7 @@ const App = () => {
     setSearchCheckboxStatus(checkbox);
 
     if (!allMovies) {
+      setIsLoading(true);
       moviesApi
         .getMovies()
         .then((data) => {
@@ -164,6 +167,9 @@ const App = () => {
           setSearchErrorMessage(
             'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
           );
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
@@ -226,6 +232,7 @@ const App = () => {
                   searchCheckboxStatus={searchCheckboxStatus}
                   searchErrorMessage={searchErrorMessage}
                   handleMoviesCardButtonClick={handleMoviesCardButtonClick}
+                  isLoading={isLoading}
                 />
               </ProtectedRoute>
             }

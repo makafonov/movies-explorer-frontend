@@ -1,6 +1,7 @@
 import Footer from '../Footer/Footer';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import MoviesHeader from '../MoviesHeader/MoviesHeader';
+import Preloader from '../Preloader/Preloader';
 import SearchForm from '../SearchForm/SearchForm';
 import './Movies.css';
 
@@ -13,6 +14,7 @@ const Movies = ({
   searchCheckboxStatus,
   searchErrorMessage,
   handleMoviesCardButtonClick,
+  isLoading,
 }) => (
   <>
     <MoviesHeader loggedIn={loggedIn} />
@@ -23,12 +25,17 @@ const Movies = ({
         searchCheckboxStatus={searchCheckboxStatus}
         searchErrorMessage={searchErrorMessage}
       />
-      <MoviesCardList
-        movies={movies}
-        savedMovies={savedMovies}
-        handleMoviesCardButtonClick={handleMoviesCardButtonClick}
-      />
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <MoviesCardList
+          movies={movies}
+          savedMovies={savedMovies}
+          handleMoviesCardButtonClick={handleMoviesCardButtonClick}
+        />
+      )}
     </main>
+
     <Footer />
   </>
 );
