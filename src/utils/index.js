@@ -24,4 +24,10 @@ const normalizeMovies = (movies) =>
     thumbnail: `${MOVIES_URL}/${movie.image.formats.thumbnail.url}`,
   }));
 
-export { searchMovies, normalizeMovies };
+const toHoursAndMinutes = (totalMinutes) => {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `${hours > 0 ? `${hours}ч` : ''} ${minutes}м`;
+};
+
+export { searchMovies, normalizeMovies, toHoursAndMinutes };

@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 
 import routes from '../../routes';
+import { toHoursAndMinutes } from '../../utils';
 import './MoviesCard.css';
 
 const MoviesCard = ({ movie, isSavedMovie, handleMoviesCardButtonClick }) => {
@@ -19,7 +20,7 @@ const MoviesCard = ({ movie, isSavedMovie, handleMoviesCardButtonClick }) => {
       </a>
       <div className='movies-card__container'>
         <h3 className='movies-card__title'>{movie.nameRU}</h3>
-        <p className='movies-card__duration'>{movie.duration}</p>
+        <p className='movies-card__duration'>{toHoursAndMinutes(movie.duration)}</p>
         <button
           className={buttonClassName}
           type='button'
