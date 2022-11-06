@@ -25,14 +25,16 @@ const Movies = ({
         searchCheckboxStatus={searchCheckboxStatus}
         searchErrorMessage={searchErrorMessage}
       />
-      {isLoading ? (
-        <Preloader />
-      ) : (
+      {isLoading && <Preloader />}
+      {!isLoading && movies.length > 0 && (
         <MoviesCardList
           movies={movies}
           savedMovies={savedMovies}
           handleMoviesCardButtonClick={handleMoviesCardButtonClick}
         />
+      )}
+      {!isLoading && movies.length === 0 && searchQuery && (
+        <p className='movies__result'>Ничего не найдено</p>
       )}
     </main>
 

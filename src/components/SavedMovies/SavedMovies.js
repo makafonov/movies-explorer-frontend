@@ -19,7 +19,12 @@ const SavedMovies = ({
         searchQuery={searchQuerySaved}
         searchCheckboxStatus={searchCheckboxStatusSaved}
       />
-      <MoviesCardList movies={movies} handleMoviesCardButtonClick={handleMoviesCardButtonClick} />
+      {movies.length > 0 && (
+        <MoviesCardList movies={movies} handleMoviesCardButtonClick={handleMoviesCardButtonClick} />
+      )}
+      {movies.length === 0 && searchQuerySaved && (
+        <p className='movies__result'>Ничего не найдено</p>
+      )}
     </main>
     <Footer />
   </>
