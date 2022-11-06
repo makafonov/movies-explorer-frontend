@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
 import routes from '../../routes';
-import useFormWithValidation from '../../utils/hooks';
+import { useFormWithValidation } from '../../utils/hooks';
 import Logo from '../Logo/Logo';
 import './AuthForm.css';
 
 const AuthForm = ({ formName, isSignUpPage, handleSubmit, authErrorMessage }) => {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation({
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
     name: '',
     email: '',
     password: '',
@@ -24,7 +24,6 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, authErrorMessage }) =>
   const submitForm = (event) => {
     event.preventDefault();
     handleSubmit(values);
-    resetForm();
   };
 
   return (
@@ -42,6 +41,7 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, authErrorMessage }) =>
                 name='name'
                 onChange={handleChange}
                 value={values.name}
+                pattern='[a-zA-Zа-яА-ЯёË\s\-]+'
                 minLength='2'
                 maxLength='30'
                 required
@@ -58,7 +58,8 @@ const AuthForm = ({ formName, isSignUpPage, handleSubmit, authErrorMessage }) =>
               type='email'
               name='email'
               onChange={handleChange}
-              value={values.email || ''}
+              value={values.email}
+              pattern='[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}'
               required
             />
             <span className={`auth__error ${errors?.email && 'auth__error_visible'}`}>

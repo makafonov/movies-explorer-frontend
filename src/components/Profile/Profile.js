@@ -57,6 +57,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
                 name='name'
                 onChange={handleChange}
                 value={values.name}
+                pattern='[a-zA-Zа-яА-ЯёË\s\-]+'
                 disabled={!isEditableForm}
                 minLength='2'
                 maxLength='30'
@@ -70,6 +71,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
                 name='email'
                 onChange={handleChange}
                 value={values.email}
+                pattern='[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}'
                 disabled={!isEditableForm}
               />
             </label>
