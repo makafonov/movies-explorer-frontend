@@ -20,7 +20,7 @@ import './App.css';
 const App = () => {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const [authErrorMessage, setAuthErrorMessage] = useState('');
@@ -43,8 +43,6 @@ const App = () => {
 
   useEffect(() => {
     if (loggedIn) {
-      navigate(routes.movies);
-
       const jwt = localStorage.getItem('jwt');
       if (!jwt) {
         return;
@@ -59,7 +57,6 @@ const App = () => {
           console.log(error);
         });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
   useEffect(() => {
@@ -80,27 +77,6 @@ const App = () => {
     }
   }, [searchQuerySaved, searchCheckboxStatusSaved, savedMovies]);
 
-  const tokenCheck = () => {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return;
-    }
-
-    mainApi
-      .getUserInfo(jwt)
-      .then(({ name, email }) => {
-        setCurrentUser({ name, email });
-        setLoggedIn(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  useEffect(() => {
-    tokenCheck();
-  }, []);
-
   const handleSignIn = (email, password) => {
     mainApi
       .signIn({ email, password })
@@ -108,7 +84,7 @@ const App = () => {
         const jwt = data.token;
         if (jwt) {
           localStorage.setItem('jwt', jwt);
-          tokenCheck();
+          setLoggedIn(true);
         }
       })
       .catch((error) => {
@@ -151,6 +127,24 @@ const App = () => {
 
     navigate(routes.main);
   };
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi
+        .getUserInfo(jwt)
+        .then((res) => {
+          setCurrentUser(res);
+          setLoggedIn(true);
+        })
+        .catch(() => {
+          handleLogOut();
+        });
+    } else {
+      setLoggedIn(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigate]);
 
   const handleUpdateProfile = (profileData) => {
     const jwt = localStorage.getItem('jwt');
