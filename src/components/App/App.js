@@ -6,12 +6,13 @@ import routes from '../../routes';
 import { normalizeMovies, searchMovies } from '../../utils';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
+import AnonymousRoute from '../AnonymousRoute/AnonymousRoute';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import NotFound from '../NotFound/NotFound';
 import Profile from '../Profile/Profile';
-import ProtectedRoute from '../ProtectedRoute';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
@@ -290,11 +291,19 @@ const App = () => {
           />
           <Route
             path={routes.signup}
-            element={<Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />}
+            element={
+              <AnonymousRoute loggedIn={loggedIn}>
+                <Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />
+              </AnonymousRoute>
+            }
           />
           <Route
             path={routes.signin}
-            element={<Login handleSighIn={handleSignIn} authErrorMessage={authErrorMessage} />}
+            element={
+              <AnonymousRoute loggedIn={loggedIn}>
+                <Login handleSighIn={handleSignIn} authErrorMessage={authErrorMessage} />
+              </AnonymousRoute>
+            }
           />
           <Route path={routes.rest} element={<NotFound />} />
         </Routes>
