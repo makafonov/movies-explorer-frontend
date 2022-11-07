@@ -35,18 +35,10 @@ const App = () => {
     JSON.parse(localStorage.getItem('searchCheckboxStatus')) ?? false
   );
 
-  const [savedMovies, setSavedMovies] = useState(
-    JSON.parse(localStorage.getItem('savedMovies')) ?? []
-  );
-  const [foundMoviesSaved, setFoundMoviesSaved] = useState(
-    JSON.parse(localStorage.getItem('foundMoviesSaved')) ?? []
-  );
-  const [searchQuerySaved, setSearchQuerySaved] = useState(
-    localStorage.getItem('searchQuerySaved') ?? ''
-  );
-  const [searchCheckboxStatusSaved, setSearchCheckboxStatusSaved] = useState(
-    JSON.parse(localStorage.getItem('searchCheckboxStatusSaved')) ?? false
-  );
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [foundMoviesSaved, setFoundMoviesSaved] = useState(null);
+  const [searchQuerySaved, setSearchQuerySaved] = useState('');
+  const [searchCheckboxStatusSaved, setSearchCheckboxStatusSaved] = useState(false);
 
   useEffect(() => {
     if (loggedIn) {
@@ -74,12 +66,6 @@ const App = () => {
     localStorage.setItem('searchCheckboxStatus', searchCheckboxStatus);
     localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
   }, [searchQuery, searchCheckboxStatus, foundMovies]);
-
-  useEffect(() => {
-    localStorage.setItem('searchQuerySaved', searchQuerySaved);
-    localStorage.setItem('searchCheckboxStatusSaved', searchCheckboxStatusSaved);
-    localStorage.setItem('foundMoviesSaved', JSON.stringify(foundMoviesSaved));
-  }, [searchQuerySaved, searchCheckboxStatusSaved, foundMoviesSaved]);
 
   useEffect(() => {
     if (allMovies) {
@@ -205,6 +191,12 @@ const App = () => {
     setSearchCheckboxStatusSaved(checkbox);
   };
 
+  const cleanupSearchResult = () => {
+    setSearchQuerySaved('');
+    setSearchCheckboxStatusSaved(false);
+    setFoundMoviesSaved(null);
+  };
+
   const handleSaveMovie = (movie) => {
     const jwt = localStorage.getItem('jwt');
     if (!jwt) {
@@ -275,10 +267,11 @@ const App = () => {
                 <SavedMovies
                   loggedIn={loggedIn}
                   handleSubmitSearch={handleSubmitSearchSaved}
-                  movies={searchQuerySaved ? foundMoviesSaved : savedMovies}
+                  movies={foundMoviesSaved !== null ? foundMoviesSaved : savedMovies}
                   searchQuerySaved={searchQuerySaved}
                   searchCheckboxStatusSaved={searchCheckboxStatusSaved}
                   handleMoviesCardButtonClick={handleMoviesCardButtonClick}
+                  cleanupSearchResult={cleanupSearchResult}
                 />
               </ProtectedRoute>
             }
