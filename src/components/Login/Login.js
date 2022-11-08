@@ -1,8 +1,20 @@
+import { useState } from 'react';
+
+import { useAuth } from '../../contexts/ProvideAuth';
 import AuthForm from '../AuthForm/AuthForm';
 
-const Login = ({ handleSighIn, authErrorMessage }) => {
+const Login = () => {
+  const auth = useAuth();
+  const [authErrorMessage, setAuthErrorMessage] = useState('');
+
   const handleSubmit = ({ email, password }) => {
-    handleSighIn(email, password);
+    auth.handleSignIn(email, password).catch((error) => {
+      setAuthErrorMessage(
+        error.status === 401
+          ? 'Вы ввели неправильный логин или пароль.'
+          : 'При авторизации произошла ошибка.'
+      );
+    });
   };
 
   return AuthForm({ formName: 'signin', isSignUpPage: false, handleSubmit, authErrorMessage });

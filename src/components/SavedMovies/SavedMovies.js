@@ -6,20 +6,19 @@ import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import SearchForm from '../SearchForm/SearchForm';
 
 const SavedMovies = ({
-  loggedIn,
   handleSubmitSearch,
   movies,
   handleMoviesCardButtonClick,
   searchQuerySaved,
   searchCheckboxStatusSaved,
-  cleanupSearchResult
+  cleanUpSearchResult
 }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => () => cleanupSearchResult(), []);
+  useEffect(() => () => cleanUpSearchResult(), []);
 
   return (
     <>
-      <MoviesHeader loggedIn={loggedIn} />
+      <MoviesHeader />
       <main className='movies'>
         <SearchForm
           handleSubmitSearch={handleSubmitSearch}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { ProvideAuth } from '../../contexts/ProvideAuth';
 import routes from '../../routes';
 import { normalizeMovies, searchMovies } from '../../utils';
 import mainApi from '../../utils/MainApi';
@@ -18,15 +18,9 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import './App.css';
 
 const App = () => {
-  const navigate = useNavigate();
-  const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [authErrorMessage, setAuthErrorMessage] = useState('');
-
   const [allMovies, setAllMovies] = useState(JSON.parse(localStorage.getItem('allMovies')) ?? null);
-
   const [foundMovies, setFoundMovies] = useState(
     JSON.parse(localStorage.getItem('foundMovies')) ?? []
   );
@@ -40,24 +34,6 @@ const App = () => {
   const [foundMoviesSaved, setFoundMoviesSaved] = useState(null);
   const [searchQuerySaved, setSearchQuerySaved] = useState('');
   const [searchCheckboxStatusSaved, setSearchCheckboxStatusSaved] = useState(false);
-
-  useEffect(() => {
-    if (loggedIn) {
-      const jwt = localStorage.getItem('jwt');
-      if (!jwt) {
-        return;
-      }
-
-      mainApi
-        .getSavedMovies(jwt)
-        .then((movies) => {
-          setSavedMovies(movies);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [loggedIn]);
 
   useEffect(() => {
     localStorage.setItem('searchQuery', searchQuery);
@@ -76,86 +52,6 @@ const App = () => {
       setFoundMoviesSaved(searchMovies(savedMovies, searchQuerySaved, searchCheckboxStatusSaved));
     }
   }, [searchQuerySaved, searchCheckboxStatusSaved, savedMovies]);
-
-  const handleSignIn = (email, password) => {
-    mainApi
-      .signIn({ email, password })
-      .then((data) => {
-        const jwt = data.token;
-        if (jwt) {
-          localStorage.setItem('jwt', jwt);
-          setLoggedIn(true);
-        }
-      })
-      .catch((error) => {
-        setAuthErrorMessage(
-          error.status === 401
-            ? 'Вы ввели неправильный логин или пароль.'
-            : 'При авторизации произошла ошибка.'
-        );
-      });
-  };
-
-  const handleSignUp = (email, password, name) => {
-    mainApi
-      .signUp({ email, password, name })
-      .then((data) => {
-        if (data) {
-          handleSignIn(email, password);
-        }
-      })
-      .catch((error) => {
-        setAuthErrorMessage(
-          error.status === 409
-            ? 'Пользователь с таким email уже существует.'
-            : 'При регистрации пользователя произошла ошибка.'
-        );
-      });
-  };
-
-  const handleLogOut = () => {
-    localStorage.clear();
-    setLoggedIn(false);
-    setSearchQuery('');
-    setSearchCheckboxStatus(false);
-    setSearchQuerySaved('');
-    setSearchCheckboxStatusSaved(false);
-    setAllMovies(null);
-    setFoundMovies([]);
-    setFoundMoviesSaved([]);
-    setSavedMovies([]);
-
-    navigate(routes.main);
-  };
-
-  useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      mainApi
-        .getUserInfo(jwt)
-        .then((res) => {
-          setCurrentUser(res);
-          setLoggedIn(true);
-        })
-        .catch(() => {
-          handleLogOut();
-        });
-    } else {
-      setLoggedIn(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navigate]);
-
-  const handleUpdateProfile = (profileData) => {
-    const jwt = localStorage.getItem('jwt');
-    if (!jwt) {
-      return undefined;
-    }
-
-    return mainApi.updateUserInfo(jwt, profileData).then((data) => {
-      setCurrentUser(data);
-    });
-  };
 
   const handleSubmitSearch = ({ search, checkbox }) => {
     setSearchQuery(search);
@@ -186,7 +82,20 @@ const App = () => {
     setSearchCheckboxStatusSaved(checkbox);
   };
 
-  const cleanupSearchResult = () => {
+  const cleanUpState = () => {
+    localStorage.clear();
+
+    setSearchQuery('');
+    setSearchCheckboxStatus(false);
+    setSearchQuerySaved('');
+    setSearchCheckboxStatusSaved(false);
+    setAllMovies(null);
+    setFoundMovies([]);
+    setFoundMoviesSaved([]);
+    setSavedMovies([]);
+  };
+
+  const cleanUpSearchResult = () => {
     setSearchQuerySaved('');
     setSearchCheckboxStatusSaved(false);
     setFoundMoviesSaved(null);
@@ -225,26 +134,27 @@ const App = () => {
   };
 
   const handleMoviesCardButtonClick = (movie) => {
-    if (savedMovies.some((savedMovie) => savedMovie.movieId === movie.movieId)) {
-      handleDeleteMovie(savedMovies.find((savedMovie) => savedMovie.movieId === movie.movieId));
+    const isEqualMovie = (savedMovie) => savedMovie.movieId === movie.movieId;
+    if (savedMovies.some(isEqualMovie)) {
+      handleDeleteMovie(savedMovies.find(isEqualMovie));
     } else {
       handleSaveMovie(movie);
     }
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <ProvideAuth>
       <div className='page'>
         <Routes>
-          <Route path={routes.home} element={<Main loggedIn={loggedIn} />} />
+          <Route path={routes.home} element={<Main />} />
           <Route
             path={routes.movies}
             element={
-              <ProtectedRoute loggedIn={loggedIn}>
+              <ProtectedRoute>
                 <Movies
-                  loggedIn={loggedIn}
                   handleSubmitSearch={handleSubmitSearch}
                   movies={foundMovies}
+                  setSavedMovies={setSavedMovies}
                   savedMovies={savedMovies}
                   searchQuery={searchQuery}
                   searchCheckboxStatus={searchCheckboxStatus}
@@ -258,15 +168,14 @@ const App = () => {
           <Route
             path={routes.saved}
             element={
-              <ProtectedRoute loggedIn={loggedIn}>
+              <ProtectedRoute>
                 <SavedMovies
-                  loggedIn={loggedIn}
                   handleSubmitSearch={handleSubmitSearchSaved}
                   movies={foundMoviesSaved !== null ? foundMoviesSaved : savedMovies}
                   searchQuerySaved={searchQuerySaved}
                   searchCheckboxStatusSaved={searchCheckboxStatusSaved}
                   handleMoviesCardButtonClick={handleMoviesCardButtonClick}
-                  cleanupSearchResult={cleanupSearchResult}
+                  cleanUpSearchResult={cleanUpSearchResult}
                 />
               </ProtectedRoute>
             }
@@ -274,35 +183,31 @@ const App = () => {
           <Route
             path={routes.profile}
             element={
-              <ProtectedRoute loggedIn={loggedIn}>
-                <Profile
-                  handleLogOut={handleLogOut}
-                  handleUpdateProfile={handleUpdateProfile}
-                  loggedIn={loggedIn}
-                />
+              <ProtectedRoute>
+                <Profile cleanUpState={cleanUpState} />
               </ProtectedRoute>
             }
           />
           <Route
             path={routes.signup}
             element={
-              <AnonymousRoute loggedIn={loggedIn}>
-                <Register handleSignUp={handleSignUp} authErrorMessage={authErrorMessage} />
+              <AnonymousRoute>
+                <Register />
               </AnonymousRoute>
             }
           />
           <Route
             path={routes.signin}
             element={
-              <AnonymousRoute loggedIn={loggedIn}>
-                <Login handleSighIn={handleSignIn} authErrorMessage={authErrorMessage} />
+              <AnonymousRoute>
+                <Login />
               </AnonymousRoute>
             }
           />
           <Route path={routes.rest} element={<NotFound />} />
         </Routes>
       </div>
-    </CurrentUserContext.Provider>
+    </ProvideAuth>
   );
 };
 

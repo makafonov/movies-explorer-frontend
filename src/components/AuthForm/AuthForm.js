@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import routes from '../../routes';
-import { useFormWithValidation } from '../../utils/hooks';
 import Logo from '../Logo/Logo';
 import './AuthForm.css';
 

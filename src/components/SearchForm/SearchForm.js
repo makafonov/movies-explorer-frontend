@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useFormWithValidation } from '../../utils/hooks';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import './SearchForm.css';
 
 const SearchForm = ({

@@ -1,21 +1,21 @@
-import React from 'react';
+import { useState } from 'react';
 
-import CurrentUserContext from '../../contexts/CurrentUserContext';
-import { useFormWithValidation } from '../../utils/hooks';
+import { useAuth } from '../../contexts/ProvideAuth';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 import MoviesHeader from '../MoviesHeader/MoviesHeader';
 import './Profile.css';
 
-const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
-  const currentUser = React.useContext(CurrentUserContext);
+const Profile = ({ cleanUpState }) => {
+  const { user, handleUpdateProfile, handleSignOut } = useAuth();
   const { values, handleChange, errors, isValid } = useFormWithValidation({
-    name: currentUser.name,
-    email: currentUser.email,
+    name: user.name,
+    email: user.email,
   });
-  const [isEditableForm, setIsEditableForm] = React.useState(false);
-  const [message, setMessage] = React.useState('');
+  const [isEditableForm, setIsEditableForm] = useState(false);
+  const [message, setMessage] = useState('');
 
   const isEditAcceptable =
-    isValid && !message && (values.name !== currentUser.name || values.email !== currentUser.email);
+    isValid && !message && (values.name !== user.name || values.email !== user.email);
 
   const handleEditProfile = () => {
     setMessage('');
@@ -41,10 +41,10 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
 
   return (
     <>
-      <MoviesHeader loggedIn={loggedIn} />
+      <MoviesHeader />
       <main className='profile'>
         <div className='profile__container'>
-          <h2 className='profile__title'> Привет, {currentUser.name}!</h2>
+          <h2 className='profile__title'> Привет, {user.name}!</h2>
           <form className='profile__form' onSubmit={submitForm} noValidate>
             <span className={`profile__error ${errors?.name && 'profile__error_visible'}`}>
               {errors.name}
@@ -98,7 +98,7 @@ const Profile = ({ handleLogOut, handleUpdateProfile, loggedIn }) => {
                 <button
                   type='button'
                   className='profile__button profile__button_type_logout'
-                  onClick={handleLogOut}
+                  onClick={() => handleSignOut(cleanUpState)}
                 >
                   Выйти из аккаунта
                 </button>

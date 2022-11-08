@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
+import useWindowSize from '../../hooks/useWindowSize';
 import routes from '../../routes';
-import { useWindowSize } from '../../utils/hooks';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 

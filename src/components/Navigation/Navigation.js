@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 
+import { useAuth } from '../../contexts/ProvideAuth';
 import accountImg from '../../images/icon-account.svg';
 import routes from '../../routes';
 import Hamburger from '../Hamburger/Hamburger';
 import './Navigation.css';
 
-const Navigation = ({ loggedIn }) =>
-  !loggedIn ? (
+const Navigation = () => {
+  const { loggedIn } = useAuth();
+
+  return !loggedIn ? (
     <ul className='nav'>
       <li className='nav__item'>
         <Link to={routes.signup} className='nav__link nav__link_type_signup'>
@@ -41,5 +44,6 @@ const Navigation = ({ loggedIn }) =>
       <Hamburger />
     </>
   );
+};
 
 export default Navigation;
