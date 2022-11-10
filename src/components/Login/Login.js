@@ -4,11 +4,11 @@ import { useAuth } from '../../contexts/ProvideAuth';
 import AuthForm from '../AuthForm/AuthForm';
 
 const Login = () => {
-  const auth = useAuth();
+  const { handleSignIn } = useAuth();
   const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const handleSubmit = ({ email, password }) => {
-    auth.handleSignIn(email, password).catch((error) => {
+    handleSignIn(email, password).catch((error) => {
       setAuthErrorMessage(
         error.status === 401
           ? 'Вы ввели неправильный логин или пароль.'

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/ProvideAuth';
@@ -7,7 +8,17 @@ import Hamburger from '../Hamburger/Hamburger';
 import './Navigation.css';
 
 const Navigation = () => {
-  const { loggedIn } = useAuth();
+  const { loggedIn, checkToken } = useAuth();
+
+  useEffect(() => {
+    if (loggedIn === null) {
+      checkToken();
+    }
+  }, [loggedIn, checkToken]);
+
+  if (loggedIn === null) {
+    return null;
+  }
 
   return !loggedIn ? (
     <ul className='nav'>

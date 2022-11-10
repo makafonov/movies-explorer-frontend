@@ -1,23 +1,23 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAuth } from '../../contexts/ProvideAuth';
 import routes from '../../routes';
 
-const ProtectedRoute = ({ children }) => {
+const GuestRoute = ({ children }) => {
   const { loggedIn, checkToken } = useAuth();
 
-  useState(() => {
+  useEffect(() => {
     if (loggedIn === null) {
       checkToken();
     }
-  }, [loggedIn]);
+  }, [loggedIn, checkToken]);
 
   if (loggedIn === null) {
     return null;
   }
 
-  return loggedIn ? children : <Navigate to={routes.home} replace />;
+  return loggedIn ? <Navigate to={routes.movies} replace /> : children;
 };
 
-export default ProtectedRoute;
+export default GuestRoute;

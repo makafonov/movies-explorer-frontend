@@ -12,8 +12,8 @@ const useProvideAuth = () => {
   const [loggedIn, setLoggedIn] = useState(null);
 
   const handleSignIn = (email, password) =>
-    mainApi.signIn({ email, password }).then((data) => {
-      const jwt = data.token;
+    mainApi.signIn({ email, password }).then((res) => {
+      const jwt = res.token;
       if (jwt) {
         localStorage.setItem('jwt', jwt);
         setLoggedIn(true);
@@ -22,10 +22,8 @@ const useProvideAuth = () => {
     });
 
   const handleSignUp = (email, password, name) =>
-    mainApi.signUp({ email, password, name }).then((res) => {
-      if (res) {
-        handleSignIn(email, password);
-      }
+    mainApi.signUp({ email, password, name }).then(() => {
+      handleSignIn(email, password);
     });
 
   const handleSignOut = (cb) => {
@@ -45,25 +43,41 @@ const useProvideAuth = () => {
     });
   };
 
-  useEffect(() => {
-    const unsubscribe = () => {
-      const jwt = localStorage.getItem('jwt');
-      if (jwt) {
-        mainApi.getUserInfo(jwt).then((res) => {
-          if (res) {
-            setLoggedIn(true);
-            setUser(res);
-          } else {
-            setLoggedIn(false);
-          }
+  const checkToken = () => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi
+        .getUserInfo(jwt)
+        .then((res) => {
+          setLoggedIn(true);
+          setUser(res);
+        })
+        .catch(() => {
+          setLoggedIn(false);
+          localStorage.removeItem('jwt');
         });
-      } else {
-        setLoggedIn(false);
-      }
-    };
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
-  }, []);
+    } else {
+      setLoggedIn(false);
+    }
+  };
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt && loggedIn) {
+      mainApi
+        .getUserInfo(jwt)
+        .then((res) => {
+          setUser(res);
+        })
+        .catch(() => {
+          setLoggedIn(false);
+          localStorage.removeItem('jwt');
+        });
+    }
+    if (!jwt) {
+      setLoggedIn(false);
+    }
+  }, [loggedIn]);
 
   return {
     user,
@@ -72,6 +86,7 @@ const useProvideAuth = () => {
     handleSignIn,
     handleSignOut,
     handleUpdateProfile,
+    checkToken,
   };
 };
 

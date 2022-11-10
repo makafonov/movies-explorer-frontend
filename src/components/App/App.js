@@ -6,7 +6,7 @@ import routes from '../../routes';
 import { normalizeMovies, searchMovies } from '../../utils';
 import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
-import AnonymousRoute from '../AnonymousRoute/AnonymousRoute';
+import GuestRoute from '../GuestRoute/GuestRoute';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -191,17 +191,17 @@ const App = () => {
           <Route
             path={routes.signup}
             element={
-              <AnonymousRoute>
+              <GuestRoute>
                 <Register />
-              </AnonymousRoute>
+              </GuestRoute>
             }
           />
           <Route
             path={routes.signin}
             element={
-              <AnonymousRoute>
+              <GuestRoute>
                 <Login />
-              </AnonymousRoute>
+              </GuestRoute>
             }
           />
           <Route path={routes.rest} element={<NotFound />} />
