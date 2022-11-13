@@ -60,7 +60,6 @@
 }
 
 .auth__error {
-  display: block;
   display: flex;
   min-height: 25px;
   align-items: center;
@@ -72,10 +71,28 @@
   visibility: hidden;
 }
 
+.auth__server-error {
+  margin: 93px 0 20px;
+  color: #ee3465;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: calc(13 / 11);
+  text-align: center;
+  visibility: hidden;
+}
+
+.auth__error_visible {
+  visibility: visible;
+}
+
+.auth__server-error_type_signin {
+  margin-top: 163px;
+}
+
 .auth__submit {
   height: 45px;
   border: none;
-  margin-top: 126px;
   background-color: #4285f4;
   border-radius: 3px;
   color: #fff;
@@ -86,8 +103,9 @@
   line-height: calc(17 / 14);
 }
 
-.auth__submit_type_signin {
-  margin-top: 196px;
+.auth__submit:disabled {
+  cursor: default;
+  opacity: .5;
 }
 
 .auth__advice {
